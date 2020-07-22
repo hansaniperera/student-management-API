@@ -26,4 +26,30 @@ public class StudentController {
     public ResponseEntity <Student> createStudent(@RequestBody Student student){
         return ResponseEntity.ok().body(studentService.createStudent(student));
     }
+    
+    //find student by id
+    @GetMapping("/students/{id}")
+    public ResponseEntity < Student > getStudentById(@PathVariable(value = "id") Integer id)
+    throws ResourceNotFoundException {
+        Student student = studentService.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + id));
+        return ResponseEntity.ok().body(student);
+    }
+
+	
+
+    
+	//delete student with specific id
+	@DeleteMapping("/students/{id}")
+    public Map < String, Boolean > deleteStudent(@PathVariable(value = "id") Integer id)
+    throws ResourceNotFoundException {
+        Student student = studentService.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " +id));
+
+        studentService.delete(student);
+        Map < String, Boolean > response = new HashMap < > ();
+        response.put("deleted", Boolean.TRUE);
+        return response;
+    }
+    
 }

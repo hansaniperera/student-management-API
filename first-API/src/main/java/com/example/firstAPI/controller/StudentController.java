@@ -31,11 +31,9 @@ public class StudentController {
     
     //find student by id
     @GetMapping("/students/{id}")
-    public ResponseEntity < Student > getStudentById(@PathVariable(value = "id") Integer id)
+    public ResponseEntity < Student > getStudentById(@PathVariable(value = "id")final Integer id)
     throws ResourceNotFoundException {
-        Student student = studentService.getById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + id));
-        return ResponseEntity.ok().body(student);
+        return ResponseEntity.ok().body(studentService.getById(id));
     }
 
 	
@@ -43,15 +41,12 @@ public class StudentController {
     
 	//delete student with specific id
 	@DeleteMapping("/students/{id}")
-    public Map < String, Boolean > deleteStudent(@PathVariable(value = "id") Integer id)
+    public HttpStatus deleteStudent(@PathVariable(value = "id")final Integer id)
     throws ResourceNotFoundException {
-        Student student = studentService.getById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " +id));
-
-        studentService.deleteStudent(student.getId());
-        Map < String, Boolean > response = new HashMap < > ();
-        response.put("deleted", Boolean.TRUE);
-        return response;
+      
+        this.studentService.deleteStudent(id);
+	ResponseEntity.status(HttpStatus.OK);
+	    return HttpStatus.OK;
     }
     
 }

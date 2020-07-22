@@ -1,9 +1,9 @@
-package com.example.demo.model;
+package com.example.firstAPI.model;
 
 
 import java.util.Date;
 
-import javax.annotation.Generated;
+// import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +27,7 @@ public class Student {
 	}
 	
 	
-	public Student(String fname,String lname,String regNo,String regDate) {
+	public Student(String fname,String lname,String regNo, Date regDate) {
 		
 		firstName=fname;
 		lastName=lname;

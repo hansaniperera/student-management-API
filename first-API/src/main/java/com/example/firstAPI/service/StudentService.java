@@ -1,10 +1,14 @@
 package com.example.firstAPI.service;
 
 import java.util.List;
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.firstAPI.repository.StudentRepository;
+import com.example.firstAPI.model.*;
+import com.example.firstAPI.exception.*;
 
 @Service
 @Transactional
@@ -22,7 +26,7 @@ public class StudentService {
     }
 	
     	public Student getById(long id) throws ResourceNotFoundException {
-        Optional<Student> studentDb = this.studentRepository.findById(id);
+        Optional<Student> studentDb = this.studentRepository.findById((int) id);
         if (studentDb.isPresent()) {
             return studentDb.get();
         } else {
@@ -31,7 +35,7 @@ public class StudentService {
     }
 
     	public void deleteStudent(long id) {
-        	Optional<Student> studentDb = this.studentRepository.findById(id);
+        	Optional<Student> studentDb = this.studentRepository.findById((int) id);
         	if (studentDb.isPresent()){
             		this.studentRepository.delete(studentDb.get());
         	}

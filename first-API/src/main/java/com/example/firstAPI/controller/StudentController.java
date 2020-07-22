@@ -30,17 +30,14 @@ public class StudentController {
     }
     
     //find student by id
-    @GetMapping("/students/{id}")
+    @GetMapping("/student/{id}")
     public ResponseEntity < Student > getStudentById(@PathVariable(value = "id")final Integer id)
     throws ResourceNotFoundException {
         return ResponseEntity.ok().body(studentService.getById(id));
     }
 
-	
-
-    
 	//delete student with specific id
-	@DeleteMapping("/students/{id}")
+	@DeleteMapping("/student/{id}")
     public HttpStatus deleteStudent(@PathVariable(value = "id")final Integer id)
     throws ResourceNotFoundException {
       
